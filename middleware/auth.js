@@ -10,6 +10,7 @@ exports.authenticate=async (req,res,next)=>{
     console.log(user.userId);
     User.findByPk(user.userId).then(user=>{
         req.user=user;
+        console.log(user)
         next();
     }).catch(err=>{throw new Error(err)})
      

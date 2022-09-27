@@ -15,6 +15,8 @@ exports.authenticate=async (req,res,next)=>{
      
     } catch(err){
         console.log(err);
+  console.log('hello')
+
         return res.status(401).json({success:false})
     }
 }

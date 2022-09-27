@@ -6,3 +6,4 @@ const sequelize=new Sequelize('node-complete','root','Saloni@22',{
 });
 
 module.exports=sequelize;
+// console.log('hello')

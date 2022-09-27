@@ -1,4 +1,5 @@
 const Sequelize=require('sequelize');
+// console.log('hello')
 
 const sequelize=require('../util/database.js')
 

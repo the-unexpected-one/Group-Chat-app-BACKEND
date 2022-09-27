@@ -11,3 +11,4 @@ router.post('/signUp', signupController.postSignUp);
 
 
 module.exports = router
+// console.log('hello')

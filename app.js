@@ -13,7 +13,7 @@ const chatUsers=require('./models/chatUsers')
 app.use(cors())
 
 const signup=require('./routes/signup')
-
+// console.log('hello')
 app.use(signup)
 
 sequelize

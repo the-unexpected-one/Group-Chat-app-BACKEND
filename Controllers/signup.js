@@ -60,4 +60,38 @@ exports.postSignUp=async (req,res,next)=>{
     })
    
   };
+
+
+  
+
+exports.login=(req,res,next)=>{
+  const email=req.body.emailid;
+  const password=req.body.password;
+  User.findAll({where:{emailid:email}}).then((user)=>{
+      bcrypt.compare(password,user[0].password,(err,result)=>{
+          
+          if(result==true){
+          
+              res.status(200).json({success:true, message:'User Login Succesfull',token: generateAccessToken(user[0].id,user[0].name)}) 
+          }
+          else{
+              res.status(401).json({success:false, message:'User not authorised'})
+          }
+      })
+      // if(user[0].password==pass){
+      //     res.status(200).json({success:true, message:'User Login Succesfull'}) 
+      // }
+      // else{
+      //     res.status(401).json({success:false, message:'User not authorised'})
+      // }
+      // console.log('1')
+  }).catch(err=>{
+      res.status(404).json({success:false, message:'User not found'})
+  })
+      res.status(200)
+  }
+  
+  function generateAccessToken(id,name){
+    return jwt.sign({userId:id,name:name},'987654321ghijklmn')
+  }
  

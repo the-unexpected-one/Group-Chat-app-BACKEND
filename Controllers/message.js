@@ -24,8 +24,19 @@ chatuserId:userId
     }).then(result=>{
         // res.json(name)
         console.log('Message Sent');
+        res.json(result)
         // res.redirect('/expenses')
        
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+
+exports.getMessages=(req,res,next)=>{
+    console.log('1')
+    Message.findAll().then(response=>{
+        console.log(response)
+        res.json(response)
     }).catch(err=>{
         console.log(err)
     })

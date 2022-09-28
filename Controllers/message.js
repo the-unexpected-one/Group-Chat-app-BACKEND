@@ -33,10 +33,28 @@ chatuserId:userId
 }
 
 exports.getMessages=(req,res,next)=>{
+console.log(req)
     console.log('1')
-    Message.findAll().then(response=>{
-        console.log(response)
-        res.json(response)
+    Message.findAll()
+    .then(messages=>{
+        
+        console.log(req.params.query)
+       if(req.params.query=='abc'){
+        
+        res.json({messages:messages})
+       }
+       else{
+        const arr=[]
+        for(let i=0;i<messages.length;i++){
+            if(messages[i].id>req.params.query){
+                console.log('1234')
+                arr.push(messages[i])
+            }
+        }
+        // }console.log(messages)
+        console.log(arr)
+        res.json({messages:arr})
+       }
     }).catch(err=>{
         console.log(err)
     })

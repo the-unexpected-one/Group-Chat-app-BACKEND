@@ -9,7 +9,11 @@ const groupuser=sequelize.define('groupuser',{
         allowNull:false,
         primaryKey:true
     },
-    
+    admin:{
+        type:Sequelize.BOOLEAN,
+
+   
+    }
 
     
 });

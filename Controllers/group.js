@@ -20,7 +20,8 @@ exports.creategroup=(req,res,next)=>{
         console.log(userId)
 groupUsers.create({
     groupuserId:userId,
-    groupId:groupid
+    groupId:groupid,
+    admin:true
 
 }).then(response=>{
     console.log(response,'7878788')
@@ -102,4 +103,59 @@ console.log(err)
     }
 
  
+}
+
+exports.makeadmin=async(req,res,next)=>{
+    let arr=[]
+    console.log(req.params.groupid,'44444444')
+    const user=req.user.id;
+
+    console.log(user,'ghghghg')
+    let confirm=0;
+    
+
+    const response=await groupUsers.findAll({where:{groupId:req.params.groupid}})
+    for(let j=0;j<response.length;j++){
+        if(response[j].groupuserId==req.user.id&&response[j].admin==true){
+            confirm=confirm+1
+        }
+    }
+ if(confirm==1){
+    for(let i=0;i<response.length;i++){
+            
+        const variable=  await User.findByPk(response[i].groupuserId);
+        arr.push(variable)
+
+  }
+  res.json({members:arr})
+ }
+ else{
+    res.json('YOU ARE NOT AN ADMIN')
+ }
+ 
+        
+    // catch(err=>{
+    //     console.log(err)
+    // })
+
+}
+
+exports.postmakeadmin=async(req,res,next)=>{
+   try{
+    const userid=req.body.userid;
+    const groupid=req.body.groupid;
+    const response=await groupUsers.findAll({where:{groupuserId:userid,groupId:groupid}})
+    response[0].update({admin:true})
+}
+    catch(err){
+console.log(err)
+    }
+}
+
+exports.removeuser=async(req,res,next)=>{   
+const userid=req.header('userid');
+const groupid=req.header('groupid')
+   const user=  await groupUsers.findAll({where:{groupuserId:userid,groupId:groupid}})
+   user[0].destroy();
+   console.log('DELETED')
 }

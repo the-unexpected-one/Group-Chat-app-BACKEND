@@ -16,4 +16,10 @@ router.get('/groupname',userauthentication.authenticate,groupController.displayg
 
 router.get('/getgroupchats/:groupid',userauthentication.authenticate,groupController.getgroupchats)
 
+router.get('/makeadmin/:groupid',userauthentication.authenticate,groupController.makeadmin)
+
+router.post('/makeadmin',groupController.postmakeadmin)
+
+router.delete('/removeuser',groupController.removeuser)
+
 module.exports=router

@@ -11,6 +11,8 @@ exports.postMessages=(req,res,next)=>{
     const message1=req.body.message;
     console.log(req.user.name);
     const name1=req.user.name;
+   
+    const groupid=req.body.groupid
     const token=req.header('Authorization');
         console.log(token);
     const user=jwt.verify(token, '987654321ghijklmn')
@@ -19,7 +21,8 @@ exports.postMessages=(req,res,next)=>{
     Message.create({
 name:name1,
 message:message1,
-chatuserId:userId
+chatuserId:userId,
+groupId:groupid
 
     }).then(result=>{
         // res.json(name)
@@ -33,9 +36,10 @@ chatuserId:userId
 }
 
 exports.getMessages=(req,res,next)=>{
-console.log(req)
+// console.log(req)
     console.log('1')
-    Message.findAll()
+    const groupid=req.header('groupid')
+    Message.findAll({where:{groupId:groupid}})
     .then(messages=>{
         
         console.log(req.params.query)
